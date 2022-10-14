@@ -12,6 +12,7 @@ import threading
 import re
 import spacy
 import json
+import time
 sp = spacy.load('en_core_web_sm')
 
 gChromeOptions = webdriver.ChromeOptions()
@@ -87,6 +88,7 @@ def profiling1(link1,keywords):
     except:
         pass
     
+    time.sleep(10)
     name = (driver1.find_elements(By.XPATH,"//h1[contains(@class,'hide-mobile')]"))[0].text
     publication_topics_list = driver1.find_elements(By.XPATH,"//div[contains(@class,'research-areas')]")
     publication = (driver1.find_elements(By.XPATH,"//div[contains(@class,'publications col-6 text-base-md-lh')]"))
