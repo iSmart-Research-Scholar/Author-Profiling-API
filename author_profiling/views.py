@@ -18,6 +18,9 @@ sp = spacy.load('en_core_web_sm')
 gChromeOptions = webdriver.ChromeOptions()
 gChromeOptions.add_argument("window-size=1920x1480")
 gChromeOptions.add_argument("disable-dev-shm-usage")
+gChromeOptions.add_argument('--no-sandbox')
+gChromeOptions.add_argument("--disable-gpu")
+gChromeOptions.add_argument("--headless")
 
 def check_position(biography):
     positions = ['president', 'vice president', 'chair', 'general chair', 'secretary', 'program chair', 'committee', 'director']
@@ -179,7 +182,9 @@ def authorProfiling(request):
             t1.start()
             t2.start()
             t3.start()
-        
+
+            time.sleep(30)
+
             t1.join()
             t2.join()
             t3.join()
