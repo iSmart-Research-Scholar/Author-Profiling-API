@@ -80,7 +80,7 @@ def profiling1(link1,keywords):
     authorScore = 0
     
     driver1.get(link1)
-    driver1.implicitly_wait(5)
+    driver1.implicitly_wait(30)
     
     try:
         l = driver1.find_element("link text", "Show More")
@@ -88,7 +88,7 @@ def profiling1(link1,keywords):
     except:
         pass
     
-    time.sleep(10)
+
     name = (driver1.find_elements(By.XPATH,"//h1[contains(@class,'hide-mobile')]"))[0].text
     publication_topics_list = driver1.find_elements(By.XPATH,"//div[contains(@class,'research-areas')]")
     publication = (driver1.find_elements(By.XPATH,"//div[contains(@class,'publications col-6 text-base-md-lh')]"))
@@ -179,7 +179,7 @@ def authorProfiling(request):
             t1.start()
             t2.start()
             t3.start()
-            
+        
             t1.join()
             t2.join()
             t3.join()
