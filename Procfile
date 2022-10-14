@@ -1,0 +1,1 @@
+web: gunicorn author_profiling.wsgi --log-file -

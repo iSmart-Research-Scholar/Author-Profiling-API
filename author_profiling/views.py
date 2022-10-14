@@ -14,6 +14,10 @@ import spacy
 import json
 sp = spacy.load('en_core_web_sm')
 
+gChromeOptions = webdriver.ChromeOptions()
+gChromeOptions.add_argument("window-size=1920x1480")
+gChromeOptions.add_argument("disable-dev-shm-usage")
+
 def check_position(biography):
     positions = ['president', 'vice president', 'chair', 'general chair', 'secretary', 'program chair', 'committee', 'director']
     count = 0
@@ -69,7 +73,7 @@ warnings.filterwarnings("ignore")
 author_profiles = []
 
 def profiling1(link1,keywords):
-    driver1 = webdriver.Chrome(ChromeDriverManager().install())
+    driver1 = webdriver.Chrome(chrome_options=gChromeOptions, executable_path=ChromeDriverManager().install())
     keywords = re.split(',|\s+|_', keywords)
     keywords = set(keywords)
     authorScore = 0
