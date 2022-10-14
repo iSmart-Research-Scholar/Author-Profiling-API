@@ -132,7 +132,7 @@ def profiling1(link1,keywords):
 
 @api_view(['GET'])
 def authorProfiling(request):
-    list = ["image theory analysis and image","https://ieeexplore.ieee.org/author/37283451200","https://ieeexplore.ieee.org/author/37086061607", "https://ieeexplore.ieee.org/author/37085753500"]
+    list = ["image theory analysis and image","https://ieeexplore.ieee.org/author/37283451200"]
 
     if request.method == 'GET':
         number_of_authors = len(list)-1
