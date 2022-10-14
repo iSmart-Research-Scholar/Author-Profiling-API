@@ -110,13 +110,21 @@ def profiling1(link1,keywords):
     author_score =  check_position(biography) + check_topic_relevance(keywords, publication_topics_list) + publications_per_year_score(publication_count, start_year, end_year) + citations_per_paper_score(citation_count, publication_count) + experience_score(start_year, end_year)
 
     driver1.close()
-    output = {'name': name, 'citation_count': citation_count, 'publication_count' : publication_count, 'publication_topics_list': publication_topics_list, 'biography': biography, 'author_score': author_score}
-    author_profiles.append(json.dumps(output))
+    output = {
+                'name': name, 
+                'citation_count': citation_count, 
+                'publication_count' : publication_count, 
+                'publication_topics_list': publication_topics_list, 
+                'biography': biography, 
+                'author_score': author_score
+            }
+    author_profiles.append(output)
     return None
 
 @api_view(['GET'])
 def authorProfiling(request):
-    list = ["image theory analysis and image","https://ieeexplore.ieee.org/author/37283451200"]
+    list = ["image theory analysis and image","https://ieeexplore.ieee.org/author/37283451200","https://ieeexplore.ieee.org/author/37086061607", "https://ieeexplore.ieee.org/author/37085753500"]
+
     if request.method == 'GET':
         number_of_authors = len(list)-1
         keywords = list[0]
@@ -134,7 +142,7 @@ def authorProfiling(request):
 
             final_output = json.dumps({"t1": author_profiles[0]})
             final_output = json.loads(final_output)
-            return JsonResponse(final_output)   
+            return Response(final_output)   
         
         elif(number_of_authors==2):
             author1 = str(authors[0])
@@ -150,6 +158,7 @@ def authorProfiling(request):
             t2.join()
             
             final_output = json.dumps({"t1": author_profiles[0], "t2": author_profiles[1]})
+            final_output = json.loads(final_output)
             return Response(final_output)
 
         else:
@@ -169,8 +178,8 @@ def authorProfiling(request):
             t2.join()
             t3.join()
             
-            wait(25)
             final_output = json.dumps({"t1": author_profiles[0], "t2": author_profiles[1], "t3": author_profiles[2]})
+            final_output = json.loads(final_output)
             return Response(final_output)
     return Response()
 
