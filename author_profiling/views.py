@@ -127,72 +127,28 @@ def profiling1(link1,keywords):
                 'biography': biography, 
                 'author_score': author_score
             }
+    author_profiles.clear()
     author_profiles.append(output)
+    
     return None
 
 @api_view(['GET'])
 def authorProfiling(request):
-    list = ["image theory analysis and image","https://ieeexplore.ieee.org/author/37283451200"]
+    # list = ["image theory analysis and image","https://ieeexplore.ieee.org/author/37283451200"]
+
+    author_code = request.GET.get('author')
+    keywords = request.GET.get('keywords')
 
     if request.method == 'GET':
-        number_of_authors = len(list)-1
-        keywords = list[0]
-        authors=[]
-        for itr in range(1,number_of_authors+1,1):
-            authors.append(list[itr])
-        if(number_of_authors==1):
-            author = str(authors[0])
+        author = "https://ieeexplore.ieee.org/author/"+str(author_code)
+        t1 = threading.Thread(target=profiling1, args=(author, keywords))
 
-            t1 = threading.Thread(target=profiling1, args=(author, keywords))
+        t1.start()
+        t1.join()
 
-            # t1 = profiling1(author,keywords)
-            t1.start()
-            t1.join()
-
-            final_output = json.dumps({"t1": author_profiles[0]})
-            final_output = json.loads(final_output)
-            return Response(final_output)   
-        
-        elif(number_of_authors==2):
-            author1 = str(authors[0])
-            author2 = str(authors[1])
-            
-            t1 = threading.Thread(target=profiling1,args=(author1,keywords))
-            t2 = threading.Thread(target=profiling1,args=(author2,keywords))
-        
-            t1.start()
-            t2.start()
-            
-            t1.join()
-            t2.join()
-            
-            final_output = json.dumps({"t1": author_profiles[0], "t2": author_profiles[1]})
-            final_output = json.loads(final_output)
-            return Response(final_output)
-
-        else:
-            author1 = str(authors[0])
-            author2 = str(authors[1])
-            author3 = str(authors[2])
-            
-            t1 = threading.Thread(target=profiling1,args=(author1,keywords))
-            t2 = threading.Thread(target=profiling1,args=(author2,keywords))
-            t3 = threading.Thread(target=profiling1,args=(author3,keywords))
-        
-            t1.start()
-            t2.start()
-            t3.start()
-
-            time.sleep(30)
-
-            t1.join()
-            t2.join()
-            t3.join()
-            
-            final_output = json.dumps({"t1": author_profiles[0], "t2": author_profiles[1], "t3": author_profiles[2]})
-            final_output = json.loads(final_output)
-            return Response(final_output)
-    return Response()
+        final_output = json.dumps(author_profiles)
+        final_output = json.loads(final_output)
+        return Response(final_output)   
 
 # print(authorProfiling(["image theory analysis and image","https://ieeexplore.ieee.org/author/37283451200", "https://ieeexplore.ieee.org/author/37086061607", "https://ieeexplore.ieee.org/author/37085753500"]))
 # * Dr. Antriksh Goswami Sir : https://ieeexplore.ieee.org/author/37086061607
