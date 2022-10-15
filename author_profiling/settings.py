@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-ip&x4@gl71=w^nv0x3zgb279ignf&4p*uyic^@a9r59n9kqp6z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['author-profiling.herokuapp.com','127.0.0.1','localhost']
+ALLOWED_HOSTS = ['author-profiling.herokuapp.com','127.0.0.1','localhost','*']
 
 
 # Application definition
@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['author-profiling.herokuapp.com','127.0.0.1','localhost']
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'corsheaders',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -47,10 +48,15 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True # If this is used then `CORS_ALLOWED_ORIGINS` will not have any effect
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'author_profiling.urls'
 
