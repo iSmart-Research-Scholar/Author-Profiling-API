@@ -136,11 +136,11 @@ def profiling1(link1,keywords):
 def authorProfiling(request):
     # list = ["image theory analysis and image","https://ieeexplore.ieee.org/author/37283451200"]
 
-    author = request.GET.get('author')
+    author_code = request.GET.get('author')
     keywords = request.GET.get('keywords')
 
     if request.method == 'GET':
-        # author = "https://ieeexplore.ieee.org/author/"+str(author_code)
+        author = "https://ieeexplore.ieee.org/author/"+str(author_code)
         t1 = threading.Thread(target=profiling1, args=(author, keywords))
 
         t1.start()
